@@ -1,3 +1,5 @@
+#ifndef JERRY_DISTANCESENSOR_H
+#define JERRY_DISTANCESENSOR_H
 
 #include "Arduino.h"
 
@@ -18,3 +20,5 @@ public:
     float getDistanceInCentimeters();
     void setup();
 };
+
+#endif // JERRY_DISTANCESENSOR_H

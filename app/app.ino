@@ -1,32 +1,43 @@
 #include "DistanceSensor.h"
 #include "Servo.h"
+#include "Component.h"
+#include "LedComponent.h"
+
+#include <ArduinoSTL.h>
 
 const int servoPwmPin = 9;
 const int distanceSensorTriggerPin = 2;
 const int distanceSensorEchoPin = 3;
+const int ledPin = 4;
 
 DistanceSensor distanceSensor(distanceSensorEchoPin, distanceSensorTriggerPin);
 Servo servo;
+std::vector<Component *> components;
+
+// define components
+LedComponent ledComponent(ledPin, 500);
 
 void setup()
 {
   Serial.begin(9600);
-  distanceSensor.setup();
-  servo.attach(servoPwmPin);
+  ledComponent.setup();
+
+  components.push_back(&ledComponent);
 }
 
 void loop()
 {
+  // handle inputs
+  for (int i = 0; i < components.size(); i++)
+  {
+    Component *component = components[i];
+    component->handleInputs();
+  }
 
-  float distance = distanceSensor.getDistanceInCentimeters();
-  Serial.println(distance);
-
-  // for testin, controlling a servo with the distance
-  int angle = map(distance, 0, 30, 0, 180);
-  angle = min(180, angle);
-  servo.write(angle);
-
-  Serial.print("Angle: ");
-  Serial.println(angle);
-  delay(50);
+  // update components
+  for (int i = 0; i < components.size(); i++)
+  {
+    Component *component = components[i];
+    component->update();
+  }
 }
