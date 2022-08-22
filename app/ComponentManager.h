@@ -16,8 +16,10 @@ private:
     };
 
     std::vector<KeyValueComponent> components;
+    static ComponentManager *instance;
 
 public:
+    static ComponentManager *getInstance();
     void registerComponent(Component *component, String id);
     Component *getComponentById(String id);
 

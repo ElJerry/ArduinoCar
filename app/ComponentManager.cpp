@@ -1,5 +1,18 @@
 #include "ComponentManager.h"
 
+ComponentManager *ComponentManager::instance = nullptr;
+
+ComponentManager *ComponentManager::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new ComponentManager();
+        return instance;
+    }
+
+    return instance;
+}
+
 void ComponentManager::registerComponent(Component *component, String id)
 {
     if (component == nullptr)
