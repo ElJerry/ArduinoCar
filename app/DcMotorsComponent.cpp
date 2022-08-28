@@ -1,4 +1,5 @@
 #include "DcMotorsComponent.h"
+#include <ArduinoSTL.h>
 
 void DcMotorsComponent::attachMotor(int pwmPin, int directionPin)
 {
@@ -24,6 +25,31 @@ void DcMotorsComponent::handleInputs()
 
 void DcMotorsComponent::handleMessages(String message)
 {
+    if (message.equals("MOTOR1"))
+    {
+        setSpeed(50);
+    }
+
+    if (message.equals("MOTOR0"))
+    {
+        setSpeed(0);
+    }
+
+    if (message.startsWith("MOTORSPEED:"))
+    {
+        // i.e MOTORSPEED:50;
+        // Set the speed to 50
+
+        String speedStr = message.substring(11);
+        int speedInt = speedStr.toInt();
+
+        setSpeed(std::min(speedInt, 250));
+
+        Serial.print("Setting speed: ");
+        Serial.println(speedInt);
+        Serial.print("String speed: ");
+        Serial.println(speedStr);
+    }
 }
 
 void DcMotorsComponent::update()
