@@ -18,6 +18,10 @@ const int servoPwmPin = 9;
 
 const int motorAPwm = 6;
 const int motorADirection = 3;
+
+const int motorBPwm = 5;
+const int motorBDirection = 4;
+
 // component manager
 ComponentManager *componentManager;
 
@@ -33,6 +37,7 @@ void setup()
 
   // register DcMotors
   dcMotorsComponent.attachMotor(motorAPwm, motorADirection);
+  dcMotorsComponent.attachMotor(motorBPwm, motorBDirection);
 
   componentManager = ComponentManager::getInstance();
 
