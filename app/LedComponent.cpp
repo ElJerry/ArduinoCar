@@ -19,37 +19,28 @@ void LedComponent::setup()
 
 void LedComponent::handleInputs()
 {
-    if (Serial.available() > 0)
+}
+
+void LedComponent::handleMessages(String message)
+{
+    if (message.equals("LED1"))
     {
-        // read instruction
-        char instruction = Serial.read();
-        Serial.print("=");
-        Serial.print(instruction);
-        Serial.println("=");
+        ledState = HIGH;
+    }
 
-        // for serial control, enables led
-        if (instruction == '1')
-        {
-            ledState = HIGH;
-        }
+    if (message.equals("LED0"))
+    {
+        ledState = LOW;
+    }
 
-        // for serial control, disables led
-        if (instruction == '0')
-        {
-            ledState = LOW;
-        }
+    if (message.equals("LEDB"))
+    {
+        mode = 0;
+    }
 
-        // enables blinking mode
-        if (instruction == 'q')
-        {
-            mode = 0;
-        }
-
-        // enables serial control mode
-        if (instruction == 'w')
-        {
-            mode = 1;
-        }
+    if (message.equals("LEDM"))
+    {
+        mode = 1;
     }
 }
 

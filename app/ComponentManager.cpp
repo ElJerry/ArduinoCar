@@ -59,6 +59,14 @@ void ComponentManager::handleInputs()
     }
 }
 
+void ComponentManager::handleMessages(String message)
+{
+    for (KeyValueComponent registeredComponent : components)
+    {
+        registeredComponent.component->handleMessages(message);
+    }
+}
+
 void ComponentManager::update()
 {
 

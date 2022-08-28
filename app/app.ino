@@ -7,10 +7,12 @@
 #include "ServoComponent.h"
 #include "DcMotorDriver.h"
 #include "DcMotorsComponent.h"
+#include "SerialMessageReader.h"
 
 #include <stdint.h>
 #include <ArduinoSTL.h>
 
+// Define pins to be used
 const int distanceSensorTriggerPin = 12;
 const int distanceSensorEchoPin = 11;
 const int ledPin = 8;
@@ -54,6 +56,10 @@ void setup()
 
 void loop()
 {
+
+  // read for serial messages
+  String message = readSerialMessage();
+  componentManager->handleMessages(message);
   componentManager->handleInputs();
   componentManager->update();
 }

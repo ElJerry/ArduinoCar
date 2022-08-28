@@ -13,7 +13,8 @@ private:
 
 public:
     LedComponent(int ledPin, int interval);
-    virtual void setup();
-    virtual void handleInputs();
-    virtual void update();
+    void setup();
+    void handleInputs();
+    void update();
+    void handleMessages(String message);
 };

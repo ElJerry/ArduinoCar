@@ -16,6 +16,7 @@ public:
     void setup();
     void handleInputs();
     void update();
+    void handleMessages(String message);
 };
 
 #endif // JERRY_ULTRASONIC_SENSOR_CMP

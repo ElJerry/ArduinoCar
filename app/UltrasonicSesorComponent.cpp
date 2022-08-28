@@ -19,25 +19,11 @@ void UltrasonicSensorComponent::handleInputs()
 {
 }
 
+void UltrasonicSensorComponent::handleMessages(String message)
+{
+}
+
 void UltrasonicSensorComponent::update()
 {
     int distance = distanceSensor->getDistanceInCentimeters();
-
-    int angle = map(distance, 0, 20, 0, 180);
-    auto servo = (ServoComponent *)ComponentManager::getInstance()->getComponentById("Servo");
-    servo->setAngle(angle);
-
-    auto dcMotors = (DcMotorsComponent *)ComponentManager::getInstance()->getComponentById("DcMotors");
-    if (distance > 10)
-    {
-        dcMotors->setSpeed(50);
-        dcMotors->goForward();
-    }
-    else
-    {
-        dcMotors->stopMotors();
-    }
-
-    Serial.print("Distance: ");
-    Serial.println(distance);
 }

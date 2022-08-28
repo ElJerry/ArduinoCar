@@ -17,4 +17,5 @@ public:
     void handleInputs();
     void update();
     void setAngle(int angle);
+    void handleMessages(String message);
 };

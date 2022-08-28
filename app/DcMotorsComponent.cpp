@@ -22,6 +22,10 @@ void DcMotorsComponent::handleInputs()
 {
 }
 
+void DcMotorsComponent::handleMessages(String message)
+{
+}
+
 void DcMotorsComponent::update()
 {
     for (int i = 0; i < motors.size(); i++)

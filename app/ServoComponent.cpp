@@ -14,6 +14,10 @@ void ServoComponent::handleInputs()
 {
 }
 
+void ServoComponent::handleMessages(String message)
+{
+}
+
 void ServoComponent::update()
 {
     servo.write(angle);
