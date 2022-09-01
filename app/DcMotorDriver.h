@@ -12,10 +12,14 @@ private:
     uint8_t speed;
     uint8_t direction;
 
+    uint8_t calculateSpeed();
+
 public:
+    int offset;
     DcMotorDriver(int pwmSpeedPin, int directionPin);
 
     void setSpeed(uint8_t speed);
+    void setOffset(uint8_t offset);
     void goForward();
     void goBackwards();
 

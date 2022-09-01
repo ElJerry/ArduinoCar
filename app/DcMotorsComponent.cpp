@@ -1,9 +1,10 @@
 #include "DcMotorsComponent.h"
 #include <ArduinoSTL.h>
 
-void DcMotorsComponent::attachMotor(int pwmPin, int directionPin)
+void DcMotorsComponent::attachMotor(int pwmPin, int directionPin, uint8_t offset)
 {
     DcMotorDriver driver(pwmPin, directionPin);
+    driver.setOffset(offset);
     motors.push_back(driver);
 
     Serial.print("Motors: ");
@@ -28,11 +29,23 @@ void DcMotorsComponent::handleMessages(String message)
     if (message.equals("MOTOR1"))
     {
         setSpeed(50);
+        return;
     }
 
     if (message.equals("MOTOR0"))
     {
         setSpeed(0);
+        return;
+    }
+
+    if (message.equals("MOTOR:BACKWARDS"))
+    {
+        goBackwards();
+    }
+
+    if (message.equals("MOTOR:FORWARD"))
+    {
+        goForward();
     }
 
     if (message.startsWith("MOTORSPEED:"))
@@ -49,6 +62,35 @@ void DcMotorsComponent::handleMessages(String message)
         Serial.println(speedInt);
         Serial.print("String speed: ");
         Serial.println(speedStr);
+        return;
+    }
+
+    if (message.startsWith("MOTOROFFSET:"))
+    {
+        // i.e MOTOROFFSET:0:50;
+        // Set the motor in index 0 offset to 50;
+
+        String offsetInfo = message.substring(12);
+        // Serial.print("motor offset info: ");
+        // Serial.println(offsetInfo);
+        // int speedInt = speedStr.toInt();
+
+        // setSpeed(std::min(speedInt, 250));
+
+        // Serial.print("Setting speed: ");
+        // Serial.println(speedInt);
+        // Serial.print("String speed: ");
+        // Serial.println(speedStr);
+    }
+
+    if (message.startsWith("INCREASE"))
+    {
+        motors[1].offset += 1;
+    }
+
+    if (message.startsWith("DECREASE"))
+    {
+        motors[1].offset -= 1;
     }
 }
 

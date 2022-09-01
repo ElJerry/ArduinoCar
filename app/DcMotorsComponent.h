@@ -12,7 +12,7 @@ private:
     std::vector<DcMotorDriver> motors;
 
 public:
-    void attachMotor(int pwmPin, int directionPin);
+    void attachMotor(int pwmPin, int directionPin, uint8_t offset);
 
     void goForward();
     void goBackwards();

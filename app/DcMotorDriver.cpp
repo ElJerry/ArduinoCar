@@ -22,6 +22,11 @@ void DcMotorDriver::goBackwards()
     direction = LOW;
 }
 
+void DcMotorDriver::setOffset(uint8_t offset)
+{
+    this->offset = offset;
+}
+
 void DcMotorDriver::setup()
 {
     pinMode(pwmSpeedPin, OUTPUT);
@@ -34,8 +39,26 @@ void DcMotorDriver::setup()
     speed = 0;
 }
 
+uint8_t DcMotorDriver::calculateSpeed()
+{
+
+    if (speed == 0)
+    {
+        return speed;
+    }
+
+    return speed + offset;
+}
+
 void DcMotorDriver::update()
 {
+
     digitalWrite(directionPin, direction);
-    analogWrite(pwmSpeedPin, speed);
+    analogWrite(pwmSpeedPin, calculateSpeed());
+    // analogWrite(pwmSpeedPin, 0);
+
+    // Serial.print("Speed: ");
+    // Serial.print(speed);
+    // Serial.print(",");
+    // Serial.println(offset);
 }

@@ -38,8 +38,8 @@ void setup()
   Serial.begin(9600);
 
   // register DcMotors
-  dcMotorsComponent.attachMotor(motorAPwm, motorADirection);
-  dcMotorsComponent.attachMotor(motorBPwm, motorBDirection);
+  dcMotorsComponent.attachMotor(motorAPwm, motorADirection, 0);
+  dcMotorsComponent.attachMotor(motorBPwm, motorBDirection, 14);
 
   componentManager = ComponentManager::getInstance();
 
